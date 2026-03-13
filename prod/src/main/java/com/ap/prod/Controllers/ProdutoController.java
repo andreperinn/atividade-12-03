@@ -22,19 +22,14 @@ public class ProdutoController {
 
 
     @GetMapping
-    public ResponseEntity<List<ProdutoModel> > findAll(){
-        List<ProdutoModel> requeste = produtoService.findAll();
-        return ResponseEntity.ok().body(requeste);
+    public List<ProdutoModel>  findAll(){
+        return produtoService.findAll();
     }
 
 
     @PostMapping
-    public ResponseEntity<ProdutoModel> criarProduto(@RequestBody ProdutoModel produtoModel){
-        ProdutoModel request = produtoService.criarProduto(produtoModel);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
-                .path("/{id}").buildAndExpand(produtoModel.getId())
-                .toUri();
-        return ResponseEntity.created(uri).body(request);
+    public ProdutoModel criarProduto(@RequestBody ProdutoModel produtoModel){
+        return produtoService.criarProduto(produtoModel);
     }
 
     @PutMapping("/{id}")
@@ -44,8 +39,7 @@ public class ProdutoController {
 
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletar (@PathVariable Long id){
+    public void  deletar (@PathVariable Long id){
         produtoService.deletar(id);
-        return ResponseEntity.noContent().build();
     }
 }
