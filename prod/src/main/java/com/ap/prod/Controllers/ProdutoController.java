@@ -30,15 +30,15 @@ public class ProdutoController {
 
     @PostMapping
     public ResponseEntity<ProdutoModel> criarProduto(@RequestBody ProdutoModel produtoModel){
-        ProdutoModel request = produtoModel.criarProduto(produtoModel);
+        ProdutoModel request = produtoService.criarProduto(produtoModel);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
                 .path("/{id}").buildAndExpand(produtoModel.getId())
                 .toUri();
-        return ResponseEntity.created().body(request);
+        return ResponseEntity.created(uri).body(request);
     }
 
     @PutMapping("/{id}")
-    public ProdutoModel atualizar (@PathVariable Long id),@RequestBody ProdutoModel produtoModel){
+    public ProdutoModel atualizar (@PathVariable Long id,@RequestBody ProdutoModel produtoModel){
         return produtoService.atualizar(id,produtoModel);
     }
 
